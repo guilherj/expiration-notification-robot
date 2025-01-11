@@ -33,17 +33,19 @@ public class Cliente implements Serializable {
 	@Id
 	@Getter
 	@GeneratedValue(strategy = GenerationType.AUTO)	
-	private Long id;
-	
+	private Long id;	
 	@Getter @Setter
 	private String nome;	
 	@Getter @Setter
 	private String celular;	
 	@Getter @Setter
+	private String pais;
+	@Getter @Setter
 	private LocalDateTime vencimento;	
 	@Getter @Setter
 	@Enumerated(EnumType.STRING)
 	private String status;
+	
 	
 	@Getter @Setter
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
