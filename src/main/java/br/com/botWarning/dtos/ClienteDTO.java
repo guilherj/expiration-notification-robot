@@ -39,12 +39,12 @@ public class ClienteDTO implements Serializable {
 	}
 
 	private Status validandoStatus(LocalDateTime vencimento2) {		
-		LocalDateTime now = LocalDateTime.now();
+		LocalDateTime dataAtual = LocalDateTime.now();
 		
-		if(vencimento.isBefore(now)) {
+		if(vencimento.isBefore(dataAtual)) {
 			return Status.EXPIRADO;
 			
-		} else if(vencimento.toLocalDate().equals(now.toLocalDate())) {
+		} else if(vencimento.toLocalDate().equals(dataAtual.toLocalDate())) {
 			return Status.VENCENDO_HOJE;
 			
 		} else {
