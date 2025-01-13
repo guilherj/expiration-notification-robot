@@ -1,4 +1,4 @@
-package br.com.botWarning.domains;
+package br.com.expirationNotificationRobot.domains;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -6,7 +6,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import br.com.botWarning.domains.enums.QuandoAvisar;
+import br.com.expirationNotificationRobot.domains.enums.WhenNotify;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,32 +24,43 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Aviso implements Serializable {	
+public class Notification implements Serializable {	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@Getter
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;	
+	private Long id;
+	
 	@Getter @Setter
-	private String mensagem;
+	@Column(name = "mensagem")
+	private String message;
+	
 	@Getter @Setter
 	@Enumerated(EnumType.STRING)
-	private QuandoAvisar quandoAvisar;
+	@Column(name = "quando_notificar")
+	private WhenNotify whenNotify;
+	
 	@Getter @Setter
-	private Integer diasAntes;	
+	@Column(name = "dias_antes")
+	private Integer daysBefore;	
+	
 	@Getter @Setter
-	@Column(nullable = false)
-	private Boolean reenviar;
+	@Column(name = "reenviar", nullable = false)
+	private Boolean resend;
+	
 	@Getter @Setter
-	private Integer qtdEnvio;
+	@Column(name = "quantidade_envio")
+	private Integer quantityShipping;
+	
 	@Getter @Setter
-	private Integer intervaloDias;	
+	@Column(name = "intervalo_dias")
+	private Integer intervalDays;	
 	
 	@Getter @Setter
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	@ManyToMany(mappedBy = "avisos", fetch = FetchType.LAZY)
-	private Set<Cliente> clientes = new HashSet<>();
+	@ManyToMany(mappedBy = "notifications", fetch = FetchType.LAZY)
+	private Set<Client> clients = new HashSet<>();
 	
 
 }

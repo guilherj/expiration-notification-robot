@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com</groupId>
-	<artifactId>botWarning</artifactId>
+	<artifactId>expiration-notification-robot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>botWarning</name>
-	<description>Bot de aviso de vencimento</description>
+	<name>expiration-notification-robot</name>
+	<description>A robot that sends subscription expiration notifications to registered customers</description>
 	<url/>
 	<licenses>
 		<license/>

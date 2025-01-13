@@ -1,4 +1,4 @@
-package br.com.botWarning.domains;
+package br.com.expirationNotificationRobot.domains;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -26,34 +27,42 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"id", "celular"})
-public class Cliente implements Serializable {
+@EqualsAndHashCode(of = {"id", "cellPhone"})
+public class Client implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@Getter
 	@GeneratedValue(strategy = GenerationType.AUTO)	
-	private Long id;	
+	private Long id;
+	
 	@Getter @Setter
-	private String nome;	
+	@Column(name = "name")
+	private String name;
+	
 	@Getter @Setter
-	private String celular;	
+	@Column(name = "celular")
+	private String cellPhone;
+	
 	@Getter @Setter
-	private String pais;
+	@Column(name = "pais")
+	private String country;
+	
 	@Getter @Setter
-	private LocalDateTime vencimento;	
+	@Column(name = "data_vencimento")
+	private LocalDateTime dueDate;
+	
 	@Getter @Setter
 	@Enumerated(EnumType.STRING)
-	private String status;
-	
+	private String status;	
 	
 	@Getter @Setter
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
-			name = "cliente_aviso",
-			joinColumns = @JoinColumn(name = "cliente_id"),
-			inverseJoinColumns = @JoinColumn(name = "aviso_id"))	
-	private Set<Aviso> avisos = new HashSet<>();
+			name = "client_notification",
+			joinColumns = @JoinColumn(name = "client_id"),
+			inverseJoinColumns = @JoinColumn(name = "notification_id"))	
+	private Set<Notification> notifications = new HashSet<>();
 
 }

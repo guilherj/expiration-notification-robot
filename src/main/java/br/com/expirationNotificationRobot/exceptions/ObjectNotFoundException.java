@@ -1,4 +1,4 @@
-package br.com.botWarning.exceptions;
+package br.com.expirationNotificationRobot.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

@@ -1,4 +1,4 @@
-package br.com.botWarning.domains.enums;
+package br.com.expirationNotificationRobot.domains.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,7 @@ public enum Status {
 	EXPIRADO(2, "EXPIRADO");
 
 	private Integer cod;
-	private String descricao;
+	private String description;
 
 	
 	public static Status toEnum(Integer cod) {

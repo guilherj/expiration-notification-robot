@@ -1,8 +1,8 @@
-package br.com.botWarning.dtos;
+package br.com.expirationNotificationRobot.dtos;
 
 import java.io.Serializable;
 
-import br.com.botWarning.domains.enums.QuandoAvisar;
+import br.com.expirationNotificationRobot.domains.enums.WhenNotify;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,17 +13,21 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AvisoDTO implements Serializable {
+public class NotificationDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
 	@NotBlank(message = "A mensagem de aviso é obrigatória.")
-	private String mensagem;
+	private String message;
+	
 	@NotBlank(message = "O campo Quando avisar é obrigatório.")
-	private QuandoAvisar quandoAvisar;	
-	private Integer diasAntes;	
-	private Boolean reenviar;
-	private Integer qtdEnvio;
+	private WhenNotify whenNotify;
+	
+	private Integer daysBefore;	
+	private Boolean resend;	
+	private Integer quantityShipping;
+	
 	@NotBlank(message = "O campo intervaloDias é obrigatório.")
-	private Integer intervaloDias;
+	private Integer intervalDays;
 }

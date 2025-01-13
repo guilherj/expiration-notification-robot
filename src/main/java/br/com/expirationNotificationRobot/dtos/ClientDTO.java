@@ -1,11 +1,11 @@
-package br.com.botWarning.dtos;
+package br.com.expirationNotificationRobot.dtos;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.botWarning.domains.enums.Status;
+import br.com.expirationNotificationRobot.domains.enums.Status;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,37 +14,37 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ClienteDTO implements Serializable {
+public class ClientDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;	
 	
 	@NotBlank(message = "O nome do cliente é obrigatório!")
-	private String nome;	
+	private String name;	
 	
 	@NotBlank(message = "O Celular do cliente é obrigatório!")
-	private String celular;	
+	private String cellPhone;	
 	
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	@NotBlank(message = "O vencimento do cliente é obrigatório!")
-	private LocalDateTime vencimento;	
+	private LocalDateTime dueDate;	
 	
 	private Status status;
 
-	public ClienteDTO(String nome, String celular, LocalDateTime vencimento) {		
-		this.nome = nome;
-		this.celular = celular;
-		this.vencimento = vencimento;
-		this.status = validandoStatus(vencimento);		
+	public ClientDTO(String name, String cellPhone, LocalDateTime dueDate) {		
+		this.name = name;
+		this.cellPhone = cellPhone;
+		this.dueDate = dueDate;
+		this.status = validClientStatus(dueDate);		
 	}
 
-	private Status validandoStatus(LocalDateTime vencimento2) {		
-		LocalDateTime dataAtual = LocalDateTime.now();
+	private Status validClientStatus(LocalDateTime dueDate) {		
+		LocalDateTime now = LocalDateTime.now();
 		
-		if(vencimento.isBefore(dataAtual)) {
+		if(dueDate.isBefore(now)) {
 			return Status.EXPIRADO;
 			
-		} else if(vencimento.toLocalDate().equals(dataAtual.toLocalDate())) {
+		} else if(dueDate.toLocalDate().equals(now.toLocalDate())) {
 			return Status.VENCENDO_HOJE;
 			
 		} else {
