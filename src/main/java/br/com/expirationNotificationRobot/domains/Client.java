@@ -7,6 +7,8 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import br.com.expirationNotificationRobot.domains.enums.Status;
+import br.com.expirationNotificationRobot.util.Util;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -26,7 +28,6 @@ import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(of = {"id", "cellPhone"})
 public class Client implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -54,7 +55,7 @@ public class Client implements Serializable {
 	
 	@Getter @Setter
 	@Enumerated(EnumType.STRING)
-	private String status;	
+	private Status status;	
 	
 	@Getter @Setter
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -64,5 +65,14 @@ public class Client implements Serializable {
 			joinColumns = @JoinColumn(name = "client_id"),
 			inverseJoinColumns = @JoinColumn(name = "notification_id"))	
 	private Set<Notification> notifications = new HashSet<>();
+
+	public Client(Long id, String name, String cellPhone, String country, LocalDateTime dueDate) {
+		this.id = id;
+		this.name = name;
+		this.cellPhone = cellPhone;
+		this.country = country;
+		this.dueDate = dueDate;
+		this.status = Util.validClientStatus(dueDate);
+	}
 
 }

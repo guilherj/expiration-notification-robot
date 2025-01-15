@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.expirationNotificationRobot.domains.Client;
 import br.com.expirationNotificationRobot.domains.enums.Status;
+import br.com.expirationNotificationRobot.util.Util;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,23 +37,15 @@ public class ClientDTO implements Serializable {
 		this.name = name;
 		this.cellPhone = cellPhone;
 		this.dueDate = dueDate;
-		this.status = validClientStatus(dueDate);		
-	}
-
-	private Status validClientStatus(LocalDateTime dueDate) {		
-		LocalDateTime now = LocalDateTime.now();
-		
-		if(dueDate.isBefore(now)) {
-			return Status.EXPIRADO;
-			
-		} else if(dueDate.toLocalDate().equals(now.toLocalDate())) {
-			return Status.VENCENDO_HOJE;
-			
-		} else {
-			return Status.A_VENCER;
-		}		
+		this.status = Util.validClientStatus(dueDate);		
 	}
 	
-	
+	public ClientDTO(Client client) {
+		this.id = client.getId();
+		this.name = client.getName();
+		this.cellPhone = client.getCellPhone();
+		this.dueDate = client.getDueDate();
+		this.status = Util.validClientStatus(client.getDueDate());		
+	}
 
 }
