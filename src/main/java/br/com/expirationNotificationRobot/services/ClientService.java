@@ -30,9 +30,9 @@ public class ClientService {
 	
 	public Client save(/*ClientDTO dto*/) {
 		
-		Client client1 = new Client(null, "Guilherme", "21993622522", "Brazil", LocalDateTime.now());
-		Client client2 = new Client(null, "Lidiane", "21993622522", "Brazil", LocalDateTime.now());
-		Client client3 = new Client(null, "Gabriel", "21993622522", "Brazil", LocalDateTime.now());
+		Client client1 = new Client(null, "Guilherme", "21988888888", "Brazil", LocalDateTime.now());
+		Client client2 = new Client(null, "Lidiane", "21988888888", "Brazil", LocalDateTime.now());
+		Client client3 = new Client(null, "Gabriel", "21988888888", "Brazil", LocalDateTime.now());
 		
 		repository.save(client1);
 		repository.save(client2);
