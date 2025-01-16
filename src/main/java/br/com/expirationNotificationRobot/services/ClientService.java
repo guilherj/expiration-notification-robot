@@ -29,7 +29,7 @@ public class ClientService {
 
 	public Client save(Client client) throws BadRequestException {		
 		validatingClient(client);		
-		return repository.save(new Client(null, client.getName(), client.getCellPhone(), client.getCountry(), client.getDueDate()));
+		return repository.save(client);
 	}
 	
 	private void validatingClient(Client cliente) throws BadRequestException {
