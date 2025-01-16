@@ -9,6 +9,7 @@ import br.com.expirationNotificationRobot.domains.Client;
 import br.com.expirationNotificationRobot.domains.enums.Status;
 import br.com.expirationNotificationRobot.util.Util;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,8 +28,8 @@ public class ClientDTO implements Serializable {
 	@NotBlank(message = "O Celular do cliente é obrigatório!")
 	private String cellPhone;	
 	
-	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	@NotBlank(message = "O vencimento do cliente é obrigatório!")
+	//@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@NotNull(message = "O vencimento do cliente é obrigatório!")
 	private LocalDateTime dueDate;	
 	
 	private Status status;
@@ -40,12 +41,12 @@ public class ClientDTO implements Serializable {
 		this.status = Util.validClientStatus(dueDate);		
 	}
 	
-	public ClientDTO(Client client) {
-		this.id = client.getId();
-		this.name = client.getName();
-		this.cellPhone = client.getCellPhone();
-		this.dueDate = client.getDueDate();
-		this.status = Util.validClientStatus(client.getDueDate());		
-	}
+//	public ClientDTO(Client client) {
+//		this.id = client.getId();
+//		this.name = client.getName();
+//		this.cellPhone = client.getCellPhone();
+//		this.dueDate = client.getDueDate();
+//		this.status = Util.validClientStatus(client.getDueDate());		
+//	}
 
 }

@@ -6,7 +6,7 @@ import org.mapstruct.factory.Mappers;
 import br.com.expirationNotificationRobot.domains.Client;
 import br.com.expirationNotificationRobot.dtos.ClientDTO;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ClientMapper {
 	
 	ClientMapper INSTANCE = Mappers.getMapper( ClientMapper.class );	 
