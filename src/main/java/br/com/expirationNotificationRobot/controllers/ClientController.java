@@ -10,8 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.expirationNotificationRobot.domains.Client;
 import br.com.expirationNotificationRobot.dtos.ClientDTO;
+import br.com.expirationNotificationRobot.dtos.request.ClientPatchDTO;
 import br.com.expirationNotificationRobot.mappers.ClientMapper;
 import br.com.expirationNotificationRobot.services.ClientService;
 import jakarta.validation.Valid;
@@ -47,11 +50,21 @@ public class ClientController {
 	}
 	
 	@PostMapping(produces = { "application/json" })
-	public ResponseEntity<ClientDTO> create(@Valid @RequestBody ClientDTO dto) throws BadRequestException {		
+	public ResponseEntity<ClientDTO> create(@Valid @RequestBody ClientDTO requestBody) throws BadRequestException {		
 
 		return ResponseEntity.status(HttpStatus.CREATED.value())
-				.body(mapper.entityToDto(service.save(mapper.dtoToEntity(dto))));		
+				.body(mapper.entityToDto(service.save(mapper.dtoToEntity(requestBody))));		
 		
+	}
+	
+	@PutMapping(value = "/{clientId}")
+	public ResponseEntity<ClientDTO> update(@PathVariable Long clientId, @Valid @RequestBody ClientDTO requestBody) throws BadRequestException {				
+		return ResponseEntity.ok().body(mapper.entityToDto(service.update(clientId, mapper.dtoToEntity(requestBody))));		
+	}
+	
+	@PatchMapping(value = "/{clientId}")
+	public ResponseEntity<ClientDTO> renewClient(@PathVariable Long clientId, @Valid @RequestBody ClientPatchDTO requestBody) throws BadRequestException {				
+		return ResponseEntity.ok().body(mapper.entityToDto(service.update(clientId, mapper.patchDtoToEntity(requestBody))));		
 	}
 	
 

@@ -10,6 +10,7 @@ import org.mapstruct.factory.Mappers;
 import br.com.expirationNotificationRobot.domains.Client;
 import br.com.expirationNotificationRobot.domains.enums.Status;
 import br.com.expirationNotificationRobot.dtos.ClientDTO;
+import br.com.expirationNotificationRobot.dtos.request.ClientPatchDTO;
 import br.com.expirationNotificationRobot.util.Util;
 
 @Mapper(componentModel = "spring")
@@ -24,6 +25,10 @@ public interface ClientMapper {
     // Converte de DTO para Entidade
 	@Mapping(target = "status", source = "dueDate", qualifiedByName = "dueDateToStatus")
     Client dtoToEntity(ClientDTO dto);
+	
+	// Converte de PatchDTO para Entidade
+		@Mapping(target = "status", source = "dueDate", qualifiedByName = "dueDateToStatus")
+	    Client patchDtoToEntity(ClientPatchDTO dto);
     
     // Método auxiliar para retornar a descrição do enum Status
     @Named("statusToDescription")

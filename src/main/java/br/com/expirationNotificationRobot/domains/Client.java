@@ -34,7 +34,7 @@ public class Client implements Serializable {
 	
 	@Id
 	@Getter
-	@GeneratedValue(strategy = GenerationType.AUTO)	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Long id;
 	
 	@Getter @Setter
@@ -64,6 +64,17 @@ public class Client implements Serializable {
 			name = "client_notification",
 			joinColumns = @JoinColumn(name = "client_id"),
 			inverseJoinColumns = @JoinColumn(name = "notification_id"))	
-	private Set<Notification> notifications = new HashSet<>();	
+	private Set<Notification> notifications = new HashSet<>();
+
+	public Client(Long id, String name, String cellPhone, String country, LocalDateTime dueDate, Status status) {
+		this.id = id;
+		this.name = name;
+		this.cellPhone = cellPhone;
+		this.country = country;
+		this.dueDate = dueDate;
+		this.status = status;
+	}
+	
+	
 
 }
