@@ -1,21 +1,17 @@
 package br.com.expirationNotificationRobot.services;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.apache.coyote.BadRequestException;
-import org.apache.logging.log4j.util.StringBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import br.com.expirationNotificationRobot.domains.Client;
-import br.com.expirationNotificationRobot.dtos.ClientDTO;
+import br.com.expirationNotificationRobot.exceptions.DataIntegratyViolationException;
 import br.com.expirationNotificationRobot.exceptions.ObjectNotFoundException;
 import br.com.expirationNotificationRobot.repositories.ClientRepository;
-import jakarta.validation.Valid;
 
 @Service
 public class ClientService {
@@ -68,9 +64,19 @@ public class ClientService {
 	private void validatingClient(Client cliente) throws BadRequestException {
 		
 		if(repository.existsByCellPhone(cliente.getCellPhone())) {
-			throw new BadRequestException("Cliente já cadastrado.");
+			throw new DataIntegratyViolationException("Cliente já cadastrado.");
 		}
 		
+	}
+
+	public void delete(Long id) {
+		Client client = findById(id);
+		
+		if(client.getNotifications().size() > 0) {
+			throw new DataIntegratyViolationException("Cliente possui notificações e por isso não pode ser deletado.");			
+		}
+		
+		repository.delete(client);		
 	}
 
 
