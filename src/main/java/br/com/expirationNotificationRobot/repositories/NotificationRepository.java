@@ -7,5 +7,7 @@ import br.com.expirationNotificationRobot.domains.Notification;
 
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
+	
+	Boolean existsByMessage(String message);
 
 }
