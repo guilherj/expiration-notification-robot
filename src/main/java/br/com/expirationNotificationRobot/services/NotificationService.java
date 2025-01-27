@@ -5,9 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import br.com.expirationNotificationRobot.domains.Notification;
-import br.com.expirationNotificationRobot.domains.enums.WhenNotify;
 import br.com.expirationNotificationRobot.exceptions.DataIntegratyViolationException;
 import br.com.expirationNotificationRobot.exceptions.ObjectNotFoundException;
 import br.com.expirationNotificationRobot.repositories.NotificationRepository;
@@ -39,8 +39,31 @@ public class NotificationService {
 	public void validatingNotification(Notification notification) {
 		
 		if(repository.existsByMessage(notification.getMessage())) {
-			throw new DataIntegratyViolationException("Notificação já cadastrada.");
+			throw new DataIntegratyViolationException("Mensagem de notificação já cadastrada.");
 		}
+	}
+
+	public Notification update(Long notificationId, Notification requestBody) {
+		Notification oldNotification = findById(notificationId);		
+		Notification newNotification = new Notification();
+		
+		newNotification.setId(notificationId);
+		newNotification.setDaysBefore(requestBody.getDaysBefore());
+		newNotification.setIntervalDays(requestBody.getIntervalDays());
+		newNotification.setMessage(StringUtils.hasText(requestBody.getMessage()) ? requestBody.getMessage() : oldNotification.getMessage());
+		newNotification.setQuantityShipping(requestBody.getQuantityShipping());
+		newNotification.setResend(requestBody.getResend());
+		newNotification.setWhenNotify(requestBody.getWhenNotify());		
+		
+		return repository.save(newNotification);
+	}
+
+	public void delete(Long id) {
+		
+		Notification notification = findById(id);
+		
+		repository.delete(notification);
+		
 	}
 
 

@@ -1,3 +1,3 @@
-insert into client(celular, pais, data_vencimento, name, status) values('21988888880', 'Brazil', '2025-01-15 23:59:59', 'Pedro', 'EXPIRADO');
-insert into client(celular, pais, data_vencimento, name, status) values('21988888881', 'Brazil', '2025-01-20 23:59:59', 'Paulo', 'VENCENDO_HOJE');
-insert into client(celular, pais, data_vencimento, name, status) values('21988888882', 'Brazil', '2025-01-30 23:59:59', 'João', 'A_VENCER');
+insert into tb_cliente(celular, pais, data_vencimento, nome, status) values('21988888880', 'Brazil', '2025-01-15 23:59:59', 'Pedro', 'EXPIRADO');
+insert into tb_cliente(celular, pais, data_vencimento, nome, status) values('21988888881', 'Brazil', '2025-01-27 23:59:59', 'Paulo', 'VENCENDO_HOJE');
+insert into tb_cliente(celular, pais, data_vencimento, nome, status) values('21988888882', 'Brazil', '2025-01-30 23:59:59', 'João', 'A_VENCER');
