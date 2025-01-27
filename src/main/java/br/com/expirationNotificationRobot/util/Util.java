@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import br.com.expirationNotificationRobot.domains.enums.Status;
 import br.com.expirationNotificationRobot.domains.enums.WhenNotify;
-import br.com.expirationNotificationRobot.exceptions.WhenNotifyException;
+import br.com.expirationNotificationRobot.exceptions.BusinessException;
 
 public class Util {
 	
@@ -38,7 +38,7 @@ public class Util {
 		}
 		
 		if(Objects.isNull(whenNotify)) {
-			throw new WhenNotifyException("Condições inválidas para criar notificação.");
+			throw new BusinessException("Condições inválidas para criar notificação.");
 		}
 		
 		return whenNotify;		

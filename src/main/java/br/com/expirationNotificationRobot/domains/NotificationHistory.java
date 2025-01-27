@@ -1,7 +1,7 @@
 package br.com.expirationNotificationRobot.domains;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,6 +34,14 @@ public class NotificationHistory implements Serializable {
 	private Long notificationId;
 	
 	@Column(name="data_envio")
-	private LocalDateTime dateSend;
+	private LocalDate dateSend;
+
+	public NotificationHistory(Long clientId, Long notificationId) {
+		this.clientId = clientId;
+		this.notificationId = notificationId;
+		this.dateSend = LocalDate.now();
+	}
+	
+	
 
 }

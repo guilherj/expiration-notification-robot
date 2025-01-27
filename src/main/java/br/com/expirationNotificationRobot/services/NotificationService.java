@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import br.com.expirationNotificationRobot.domains.Notification;
-import br.com.expirationNotificationRobot.exceptions.DataIntegratyViolationException;
+import br.com.expirationNotificationRobot.exceptions.BusinessException;
 import br.com.expirationNotificationRobot.exceptions.ObjectNotFoundException;
 import br.com.expirationNotificationRobot.repositories.NotificationRepository;
 
@@ -39,7 +39,7 @@ public class NotificationService {
 	public void validatingNotification(Notification notification) {
 		
 		if(repository.existsByMessage(notification.getMessage())) {
-			throw new DataIntegratyViolationException("Mensagem de notificação já cadastrada.");
+			throw new BusinessException("Mensagem de notificação já cadastrada.");
 		}
 	}
 

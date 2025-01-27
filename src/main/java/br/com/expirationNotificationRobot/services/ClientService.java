@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import br.com.expirationNotificationRobot.domains.Client;
-import br.com.expirationNotificationRobot.exceptions.DataIntegratyViolationException;
+import br.com.expirationNotificationRobot.exceptions.BusinessException;
 import br.com.expirationNotificationRobot.exceptions.ObjectNotFoundException;
 import br.com.expirationNotificationRobot.repositories.ClientRepository;
 
@@ -64,7 +64,7 @@ public class ClientService {
 	private void validatingClient(Client cliente) throws BadRequestException {
 		
 		if(repository.existsByCellPhone(cliente.getCellPhone())) {
-			throw new DataIntegratyViolationException("Cliente já cadastrado.");
+			throw new BusinessException("Cliente já cadastrado.");
 		}
 		
 	}
