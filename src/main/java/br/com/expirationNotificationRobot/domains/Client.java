@@ -2,23 +2,16 @@ package br.com.expirationNotificationRobot.domains;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import br.com.expirationNotificationRobot.domains.enums.Status;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,6 +19,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name="tb_cliente")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id", "cellPhone"})
@@ -38,7 +32,7 @@ public class Client implements Serializable {
 	private Long id;
 	
 	@Getter @Setter
-	@Column(name = "name")
+	@Column(name = "nome")
 	private String name;
 	
 	@Getter @Setter
@@ -55,26 +49,7 @@ public class Client implements Serializable {
 	
 	@Getter @Setter
 	@Enumerated(EnumType.STRING)
-	private Status status;	
-	
-	@Getter @Setter
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-			name = "client_notification",
-			joinColumns = @JoinColumn(name = "client_id"),
-			inverseJoinColumns = @JoinColumn(name = "notification_id"))	
-	private Set<Notification> notifications = new HashSet<>();
-
-	public Client(Long id, String name, String cellPhone, String country, LocalDateTime dueDate, Status status) {
-		this.id = id;
-		this.name = name;
-		this.cellPhone = cellPhone;
-		this.country = country;
-		this.dueDate = dueDate;
-		this.status = status;
-	}
-	
+	private Status status;
 	
 
 }

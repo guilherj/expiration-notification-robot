@@ -72,9 +72,9 @@ public class ClientService {
 	public void delete(Long id) {
 		Client client = findById(id);
 		
-		if(client.getNotifications().size() > 0) {
-			throw new DataIntegratyViolationException("Cliente possui notificações e por isso não pode ser deletado.");			
-		}
+//		if(client.getNotifications().size() > 0) {
+//			throw new DataIntegratyViolationException("Cliente possui notificações e por isso não pode ser deletado.");			
+//		}
 		
 		repository.delete(client);		
 	}
