@@ -26,7 +26,7 @@ public class Notification implements Serializable {
 	@Id
 	@Getter
 	@Setter
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Getter @Setter
