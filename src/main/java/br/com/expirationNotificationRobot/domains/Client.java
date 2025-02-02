@@ -1,6 +1,7 @@
 package br.com.expirationNotificationRobot.domains;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import br.com.expirationNotificationRobot.domains.enums.Status;
@@ -45,7 +46,7 @@ public class Client implements Serializable {
 	
 	@Getter @Setter
 	@Column(name = "data_vencimento")
-	private LocalDateTime dueDate;
+	private LocalDate dueDate;
 	
 	@Getter @Setter
 	@Enumerated(EnumType.STRING)

@@ -1,22 +1,22 @@
 package br.com.expirationNotificationRobot.util;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
+import br.com.expirationNotificationRobot.constants.NotificationRobotConstants;
 import br.com.expirationNotificationRobot.domains.enums.Status;
 import br.com.expirationNotificationRobot.domains.enums.WhenNotify;
 import br.com.expirationNotificationRobot.exceptions.BusinessException;
 
 public class Util {
 	
-	public static Status validClientStatus(LocalDateTime dueDate) {		
-		LocalDate now = LocalDate.now();
+	public static Status validClientStatus(LocalDate dueDate) {		
+		LocalDate now = NotificationRobotConstants.CURRENTDATE;
 		
-		if(dueDate.toLocalDate().isBefore(now)) {
+		if(dueDate.isBefore(now)) {
 			return Status.EXPIRADO;
 			
-		} else if(dueDate.toLocalDate().equals(now)) {
+		} else if(dueDate.equals(now)) {
 			return Status.VENCENDO_HOJE;
 			
 		} else {

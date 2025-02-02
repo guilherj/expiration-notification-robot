@@ -1,5 +1,6 @@
 package br.com.expirationNotificationRobot.mappers;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.mapstruct.Mapper;
@@ -38,7 +39,7 @@ public interface ClientMapper {
 
     // Método auxiliar para definir o status do cliente
     @Named("dueDateToStatus")
-    default Status dueDateToStatus(LocalDateTime dueDate) {
+    default Status dueDateToStatus(LocalDate dueDate) {
         return Util.validClientStatus(dueDate);
     }
 

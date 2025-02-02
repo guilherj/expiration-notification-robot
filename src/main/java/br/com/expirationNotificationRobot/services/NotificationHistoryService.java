@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.expirationNotificationRobot.constants.NotificationRobotConstants;
 import br.com.expirationNotificationRobot.domains.NotificationHistory;
 import br.com.expirationNotificationRobot.exceptions.BusinessException;
 import br.com.expirationNotificationRobot.repositories.NotificationHistoryRepository;
@@ -42,7 +43,7 @@ public class NotificationHistoryService {
 	
 	public void updateNotificationHistory (NotificationHistory notificationHistory) {
 		
-		notificationHistory.setDateSend(LocalDate.now());		
+		notificationHistory.setDateSend(NotificationRobotConstants.CURRENTDATE);		
 		repository.save(notificationHistory);		
 	}
 	

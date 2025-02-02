@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import br.com.expirationNotificationRobot.constants.NotificationRobotConstants;
 import br.com.expirationNotificationRobot.domains.Client;
 import br.com.expirationNotificationRobot.exceptions.BusinessException;
 import br.com.expirationNotificationRobot.exceptions.ObjectNotFoundException;
@@ -17,7 +18,8 @@ import br.com.expirationNotificationRobot.repositories.ClientRepository;
 public class ClientService {
 
 	@Autowired
-	private ClientRepository repository;
+	private ClientRepository repository;	
+	
 
 	public Client findById(Long id) {
 
@@ -61,6 +63,40 @@ public class ClientService {
 		return repository.save(oldClient);
 	}
 	
+	public void delete(Long id) {
+		Client client = findById(id);
+		
+		repository.delete(client);		
+	}
+	
+	/**
+	 * Busca na base de dados Clientes com vencimento ANTES da data atual.
+	 * @param date
+	 */
+	public List<Client> findByDueDateBefore() {		
+		return repository.findByDueDateBefore(NotificationRobotConstants.CURRENTDATE);
+	}
+	
+	/**
+	 * Busca na base de dados Clientes com vencimento DEPOIS da data atual.
+	 * @param date
+	 */
+	public List<Client> findByDueDateAfter() {
+		return repository.findByDueDateAfter(NotificationRobotConstants.CURRENTDATE);
+	}
+	
+	/**
+	 * Busca na base de dados clientes com vencimento NA DATA ATUAL.
+	 *  
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<Client> findByDueDateBetween() {		
+		return repository.findByDueDate(NotificationRobotConstants.CURRENTDATE);
+	}
+	
+	
 	private void validatingClient(Client cliente) throws BadRequestException {
 		
 		if(repository.existsByCellPhone(cliente.getCellPhone())) {
@@ -69,15 +105,6 @@ public class ClientService {
 		
 	}
 
-	public void delete(Long id) {
-		Client client = findById(id);
-		
-//		if(client.getNotifications().size() > 0) {
-//			throw new DataIntegratyViolationException("Cliente possui notificações e por isso não pode ser deletado.");			
-//		}
-		
-		repository.delete(client);		
-	}
 
 
 }

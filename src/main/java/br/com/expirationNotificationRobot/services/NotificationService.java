@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import br.com.expirationNotificationRobot.domains.Notification;
+import br.com.expirationNotificationRobot.domains.enums.WhenNotify;
 import br.com.expirationNotificationRobot.exceptions.BusinessException;
 import br.com.expirationNotificationRobot.exceptions.ObjectNotFoundException;
 import br.com.expirationNotificationRobot.repositories.NotificationRepository;
@@ -22,6 +23,12 @@ public class NotificationService {
 		
 		Optional<Notification> notification = repository.findById(id);
 		return notification.orElseThrow(() -> new ObjectNotFoundException("Notificação com id " + id + " não encontrado."));
+	}
+	
+	public Notification findByWhenNotify(WhenNotify whenNotify) {		
+		
+		Optional<Notification> notification = repository.findByWhenNotify(whenNotify);
+		return notification.orElseThrow(() -> new ObjectNotFoundException("Notificação não encontrado."));
 	}
 	
 	public List<Notification> findAll() {		
